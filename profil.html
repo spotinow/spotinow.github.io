@@ -1,0 +1,50 @@
+---
+layout: null
+permalink: /track/
+---
+
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <title>Spotinow Kullanıcı Sayfası</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="content">
+    <h2>🎧 Şu an dinlenilen şarkı:</h2>
+    <img id="album" src="" alt="Albüm" width="200">
+    <h3 id="track">Yükleniyor...</h3>
+    <p id="artist"></p>
+    <a id="link" href="" target="_blank">Spotify'da aç</a>
+  </div>
+
+  <script>
+    function getUsernameFromURL() {
+      const path = window.location.pathname;
+      return path.replace("/", "").toLowerCase();
+    }
+
+    async function fetchTrack() {
+      const username = getUsernameFromURL();
+      try {
+        const res = await fetch(`http://localhost:5000/track/testuser`);
+        const data = await res.json();
+
+        if (data.error) {
+          document.getElementById('track').innerText = data.error;
+        } else {
+          document.getElementById('album').src = data.album_image;
+          document.getElementById('track').innerText = data.track;
+          document.getElementById('artist').innerText = data.artists;
+          document.getElementById('link').href = data.url;
+        }
+      } catch (err) {
+        document.getElementById('track').innerText = "Hata oluştu";
+      }
+    }
+
+    fetchTrack();
+    setInterval(fetchTrack, 5000); // 5 saniyede bir yenile
+  </script>
+</body>
+</html>

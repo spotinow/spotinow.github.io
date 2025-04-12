@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <title>Spotinow</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>Spotinow</h1>
+  <p>Kendi müzik sayfanı oluştur!</p>
+  <form id="login-form">
+    <input type="text" id="username" placeholder="Kullanıcı adın" required>
+    <button type="submit">Spotify Hesabını Bağla</button>
+  </form>
+
+  <script>
+    const form = document.getElementById('login-form');
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      const username = document.getElementById('username').value;
+      // backend'e yönlendir: ?state=username ile geçiyoruz
+      window.location.href = `http://localhost:5000/login?state=${username}`;
+    });
+  </script>
+</body>
+</html>
