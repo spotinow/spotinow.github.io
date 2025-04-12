@@ -27,7 +27,7 @@ permalink: /track/
     async function fetchTrack() {
       const username = getUsernameFromURL();
       try {
-        const res = await fetch(`http://localhost:5000/track/testuser`);
+        const res = await fetch(`https://c209492u.up.railway.app/track/testuser`);
         const data = await res.json();
 
         if (data.error) {
